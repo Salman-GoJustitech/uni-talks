@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import firebase from '../firebase';
 
 
-export default function AddMessage() {
+export default function AddMessage(props) {
 const [text, setText] = useState('');
 
 const handleOnChange = (e) => {
@@ -12,13 +12,13 @@ setText(e.target.value);
 const createMessage = () => {
     console.log(firebase.auth().currentUser.uid)
 if(text !==''){
-    const messageRef = firebase.database().ref('Message');
+    const messageRef = firebase.database().ref(props.data);
 const message = {
     text,
     name:firebase.auth().currentUser.providerData[0],
 }; 
 
-messageRef.push(message);
+messageRef.child("/data").push(message);
 }
 else{
     alert("Please test some message");

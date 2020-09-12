@@ -13,8 +13,10 @@ export default function MessageBox() {
     //         behavior: 'smooth'
     //     });
     // },[])
+    const id=window.location.pathname;
+    var ret = id.replace("/message/",'');
     useEffect(() => {
-    const todoRef = firebase.database().ref('Message');
+    const todoRef = firebase.database().ref(ret).child("/data");
     todoRef.on('value', (snapshot) => {
         const todos = snapshot.val();
         const todoList = [];
@@ -60,7 +62,7 @@ export default function MessageBox() {
     </Container>
     {todoList
             ? (
-            <AddMessage/>
+            <AddMessage data={ret}/>
             )
             : ''}
     </div>
